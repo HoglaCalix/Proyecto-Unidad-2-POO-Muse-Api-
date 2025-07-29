@@ -3,7 +3,7 @@ from datetime import datetime
 from fastapi import FastAPI , Query
 from typing import Optional
 from bson import ObjectId
-from models.art import Art
+from models.art import Art, ArtWithType
 from utils.mongodb import get_collection
 from fastapi import APIRouter, HTTPException, Request
 from pipelines.art_pipelines import validate_art_type_pipeline, get_all_arts_with_types_pipeline
@@ -11,7 +11,7 @@ art_collection = get_collection("art")
 art_type_collection = get_collection("art_type")
 
 
-async def get_all_art_with_pipeline_endpoint(skip: int = 0, limit: int = 5) -> list[Art]:
+async def get_all_art_with_pipeline_endpoint(skip: int = 0, limit: int = 5) -> list[ArtWithType]:
     try:
         pipeline = get_all_arts_with_types_pipeline(skip,limit)
         arts = list(art_collection.aggregate(pipeline))

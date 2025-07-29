@@ -31,20 +31,20 @@ def get_all_arts_with_types_pipeline(skip: int, limit: int) -> list:
             "foreignField": "_id",
             "as": "art_type"
         }},
-        {"$unwind": "$art_type"},
 
+            { "$unwind": "$art_type" },
         
         {"$project": {
             "id_art": {"$toString": "$_id"},
-            "id": {"$toString": "$_id"},
-            "id_art_type": {"$toString": "$id_art_type"},
-            "id_art_type_status": "$art_type.active",
             "description": "$description",
-            "arttypetname": "$art_type.arttypetname",
             "active": "$active",
             "title": "$title", 
-            "creation_date": "$creation_date"
-            , "image_url": "$image_url"
+            "creation_date": "$creation_date",
+            "image_url": "$image_url",
+            "id_art_type": {"$toString": "$id_art_type"},
+            "id_art_type_status": "$art_type.active",
+            "arttypetname": "$art_type.arttypetname",
+
         }},
         
         {"$skip": skip},

@@ -23,3 +23,4 @@ class Art_Type(BaseModel):
         default=True,
         description="Estado activo del tipo de arte, por defecto es True"
     )
+

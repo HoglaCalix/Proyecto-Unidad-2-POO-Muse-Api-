@@ -43,4 +43,13 @@ class Art(BaseModel):
         description="Estado activo de la obra de arte, por defecto es True"
     )
 
-   
+class ArtWithType(BaseModel):
+    id_art: str 
+    title: str
+    description: str
+    creation_date: str
+    image_url: str
+    active: bool
+    id_art_type: str
+    arttypetname: str
+    id_art_type_status: bool

@@ -1,7 +1,7 @@
 from fastapi  import FastAPI ,  Query
-from typing import Optional
+from typing import Optional, Any
 from bson import ObjectId
-from models.art import Art
+from models.art import Art, ArtWithType
 from utils.mongodb import get_collection
 from fastapi import APIRouter, HTTPException , Request
 from utils.security import validateadmin, validateuser
@@ -54,7 +54,7 @@ async def get_average_amount_of_arts(request: Request):
     return await get_average_amount_of_arts_with_pipeline()
 
 #Obtener todos los artes con pipeline
-@router.get("/with-pipeline", response_model=list[Art])
+@router.get("/with-pipeline", response_model=list[ArtWithType])
 @validateadmin
 async def get_all_arts_using_pipeline(request: Request):
     return await get_all_art_with_pipeline_endpoint()
