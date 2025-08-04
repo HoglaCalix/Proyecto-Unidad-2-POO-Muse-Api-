@@ -8,7 +8,9 @@ jobs:
   helloworld:
     runs-on: ubuntu-latest
     steps: 
-    -uses: actions/checkout@v4
-    -name: Imprimir en consola 
-      run: echo "Hello World, GITHUB ACTIONS"
+    - uses: actions/checkout@v4
+
+    - name: Imprimir en consola 
+      run: 
+        echo "Hello World, GITHUB ACTIONS"
       
