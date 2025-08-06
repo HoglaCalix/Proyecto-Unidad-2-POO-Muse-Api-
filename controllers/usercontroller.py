@@ -15,9 +15,8 @@ from models.loggin import Login
 from utils.security import create_jwt_token
 from utils.mongodb import get_collection
 
-cred = credentials.Certificate("secrets/firebase.json")
-firebase_admin.initialize_app(cred)
 
+load_dotenv()
 #
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
