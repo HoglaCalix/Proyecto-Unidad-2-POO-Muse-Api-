@@ -43,7 +43,7 @@ async def search_art(
 
 
 @router.get("/get_all_arts", response_model=list[Art])
-@validateadmin
+@validateuser
 async def get_all_arts(request: Request):
     return await get_all_art()
 
@@ -55,7 +55,7 @@ async def get_average_amount_of_arts(request: Request):
 
 #Obtener todos los artes con pipeline
 @router.get("/with-pipeline", response_model=list[ArtWithType])
-@validateadmin
+@validateuser
 async def get_all_arts_using_pipeline(request: Request):
     return await get_all_art_with_pipeline_endpoint()
 
@@ -74,13 +74,13 @@ async def create_arts(art: Art, request: Request):
 
 #Actualizar un arte por ID
 @router.put("/{art_id}", response_model=Art)
-@validateadmin
+@validateuser
 async def update_arts(art_id: str, art: Art, request: Request):
     return await update_art(art_id, art)
 
 #Eliminar un arte por ID
 @router.delete("/{art_id}")
-@validateadmin
+@validateuser
 async def delete_arts(art_id: str, request: Request):
     return await deactivate_art(art_id)
 
