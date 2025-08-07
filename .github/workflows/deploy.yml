@@ -52,13 +52,13 @@ jobs:
 
   deploy:
     needs: test
-        runs-on: ubuntu-latest
-        if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
-        steps:
-        - uses: actions/checkout@v4
-        - name: Install Railway CLI
-          run: |
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Railway CLI
+      run: |
             # Use the official Railway CLI installation method with retry
             curl -fsSL https://railway.app/install.sh | sh || {
             echo "First install attempt failed, trying alternative method..."
@@ -77,17 +77,17 @@ jobs:
 
             # Verify installation
             railway --version || railway version || echo "Railway CLI installed but version check failed"
-        - name: Deploy to Railway
-          env:
-            RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          run: |
-            echo "starting deployment..."
-            railway up --service "dulceria-api" || \
-            railway up --service dulceria-api || \
-            railway up --service web || \
-            railway up --service api || \
-            railway up --service app || \
-            railway up --service dulceria-api || \
-            railway up --service dulceria || \
-            railway up --service backend || \
-            (echo "creating new service and deploying" && railway up)
+    - name: Deploy to Railway
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      run: |
+        echo "starting deployment..."
+        railway up --service "muse-api" || \
+        railway up --service muse-api || \
+        railway up --service web || \
+        railway up --service api || \
+        railway up --service app || \
+        railway up --service muse-api || \
+        railway up --service muse || \
+        railway up --service backend || \
+        (echo "creating new service and deploying" && railway up)
