@@ -1,6 +1,6 @@
 from bson import ObjectId
 
-def get_catalog_type_pipeline() -> list:
+def get_art_type_pipeline() -> list:
     return [
         {
             "$addFields": {
@@ -8,9 +8,9 @@ def get_catalog_type_pipeline() -> list:
             }
         },{
             "$lookup": {
-                "from": "catalogs",
+                "from": "art",
                 "localField": "id",
-                "foreignField": "id_catalog_type",
+                "foreignField": "id_art_type",
                 "as": "result"
             }
         },{
@@ -20,9 +20,7 @@ def get_catalog_type_pipeline() -> list:
                     "description": "$description",
                     "active": "$active"
                 },
-                "number_of_products": {
-                    "$sum": {"$size": "$result"}
-                }
+                
             }
         },{
             "$project": {
@@ -30,7 +28,7 @@ def get_catalog_type_pipeline() -> list:
                 "id": "$_id.id",
                 "description": "$_id.description",
                 "active": "$_id.active",
-                "number_of_products": 1
+                
             }
         }
     ]
