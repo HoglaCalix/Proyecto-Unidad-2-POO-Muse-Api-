@@ -1,34 +1,26 @@
-from bson import ObjectId
-
 def get_art_type_pipeline() -> list:
     return [
         {
             "$addFields": {
                 "id": {"$toString": "$_id"}
             }
-        },{
+        },
+        {
             "$lookup": {
                 "from": "art",
                 "localField": "id",
-                "foreignField": "id_art_type",
-                "as": "result"
+                "foreignField": "id_art_type",  # Este campo debe coincidir con el campo en 'art'
+                "as": "artworks"
             }
-        },{
-            "$group": {
-                "_id": {
-                    "id": "$id",
-                    "description": "$description",
-                    "active": "$active"
-                },
-                
-            }
-        },{
+        },
+        {
             "$project": {
                 "_id": 0,
-                "id": "$_id.id",
-                "description": "$_id.description",
-                "active": "$_id.active",
-                
+                "id": 1,
+                "arttypetname": 1,
+                "typedescription": 1,
+                "active": 1,
+                "artworks": 1
             }
         }
     ]
