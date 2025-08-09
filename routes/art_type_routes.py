@@ -17,7 +17,7 @@ art_type_collection = get_collection("art_type")
 router = APIRouter(prefix="/art_type")
 
 ##Obtener todos los tipos de arte 
-@router.get("/get_art_type" , response_model=list[Art_Type])
+@router.get("/get_art_type" )
 @validateuser
 async def get_all_art_type(request: Request):
     return await get_all_art_types()
