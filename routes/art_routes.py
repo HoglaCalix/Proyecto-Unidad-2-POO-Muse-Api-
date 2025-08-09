@@ -21,9 +21,9 @@ from controllers.art import (
 
 art_type_collection = get_collection("art")
 
-router = APIRouter(prefix="/art")
+router = APIRouter()
 
-@router.get("/search", response_model=list[Art])
+@router.get("/art/search", response_model=list[Art])
 async def search_art(
     title: Optional[str] = Query(default=None, description="Search by title"),
     active: Optional[bool] = Query(default=None, description="Filter by active status"),
@@ -42,50 +42,50 @@ async def search_art(
     )
 
 
-@router.get("/get_all_arts", response_model=list[Art])
+@router.get("/art", response_model=list[Art])
 @validateuser
 async def get_all_arts(request: Request):
     return await get_all_art()
 
 #Estadísticas primero (rutas fijas)
-@router.get("/average_amount_of_arts")
+@router.get("/art/average_amount_of_arts")
 @validateuser
 async def get_average_amount_of_arts(request: Request):
     return await get_average_amount_of_arts_with_pipeline()
 
 #Obtener todos los artes con pipeline
-@router.get("/with-pipeline", response_model=list[ArtWithType])
+@router.get("/art/art_with-pipeline", response_model=list[ArtWithType])
 @validateuser
 async def get_all_arts_using_pipeline(request: Request):
     return await get_all_art_with_pipeline_endpoint()
 
 
 #Crear un arte (con validación por pipeline)
-@router.post("/validate", response_model=Art)
+@router.post("/art/art_val", response_model=Art)
 @validateuser
 async def create_arts_using_pipelines(art: Art, request: Request):
     return await create_art_validating_with_pipeline(art, request)
 
 # Crear arte básico
-@router.post("/create_arts", response_model=Art)
+@router.post("/art", response_model=Art)
 @validateuser
 async def create_arts(art: Art, request: Request):
     return await create_art(art, request)
 
 #Actualizar un arte por ID
-@router.put("/{art_id}", response_model=Art)
+@router.put("/art/{art_id}", response_model=Art)
 @validateuser
 async def update_arts(art_id: str, art: Art, request: Request):
     return await update_art(art_id, art)
 
 #Eliminar un arte por ID
-@router.delete("/{art_id}")
+@router.delete("/art/{art_id}")
 @validateuser
 async def delete_arts(art_id: str, request: Request):
     return await deactivate_art(art_id)
 
 #Obtener un arte por ID
-@router.get("/{art_id}", response_model=Art)
+@router.get("/art/{art_id}", response_model=Art)
 @validateuser
 async def get_art_by_ids(art_id: str, request: Request):
     return await get_art_by_id(art_id)
