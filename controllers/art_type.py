@@ -13,7 +13,7 @@ async def get_all_art_types() -> list:
     try:
         art_types = []
         for doc in art_type_collection.find():
-            doc["_id"] = str(doc["_id"])
+            doc["id_arttype"] = str(doc["_id"])
             del doc["_id"]
             catalog_type = Art_Type(**doc)
             art_types.append(catalog_type)
