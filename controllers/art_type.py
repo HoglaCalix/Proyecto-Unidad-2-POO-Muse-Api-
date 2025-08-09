@@ -4,8 +4,7 @@ from bson import ObjectId
 from models.art_type import Art_Type
 from utils.mongodb import get_collection
 from fastapi import APIRouter, HTTPException
-from pipelines.art_pipelines import (
-    get_art_type_pipeline)
+from pipelines.art_type_pipelines import get_art_type_pipeline
 
 art_type_collection = get_collection("art_type")
 art_collection = get_collection("art")
