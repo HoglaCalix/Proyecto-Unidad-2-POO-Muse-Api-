@@ -19,6 +19,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allows all headers
 )
+
  
 app.include_router(art_type_router)
 app.include_router(art_router)
