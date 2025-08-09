@@ -11,8 +11,12 @@ art_collection = get_collection("art")
 
 async def get_all_art_types() -> list:
     try:
-        pipeline = get_art_type_pipeline()
-        art_types = list(art_type_collection.aggregate(pipeline))
+        art_types = []
+        for doc in art_type_collection.find():
+            doc["_id"] = str(doc["_id"])
+            del doc["_id"]
+            catalog_type = Art_Type(**doc)
+            art_types.append(catalog_type)
         return art_types
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving art types: {str(e)}")
