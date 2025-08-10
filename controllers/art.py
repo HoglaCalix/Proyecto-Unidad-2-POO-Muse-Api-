@@ -38,8 +38,6 @@ async def get_all_art() -> list[Art]:
 async def get_art_by_id(art_id: str) -> Art:
     try:
         doc = art_collection.find_one({"_id": ObjectId(art_id)})
-        if not doc.get("active", True):
-            raise HTTPException(status_code=404, detail="Art not found or inactive")
         if not doc:
             raise HTTPException(status_code=404, detail="Art not found")
         doc["_id"] = str(doc["_id"])
