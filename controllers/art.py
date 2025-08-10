@@ -26,7 +26,7 @@ async def get_all_art() -> list[Art]:
     
     try:
         arts = []
-        for doc in art_collection.find({"active": True}):
+        for doc in art_collection.find():
             doc["id_art"] = str(doc["_id"])
             del doc["_id"]
             art = Art(**doc)

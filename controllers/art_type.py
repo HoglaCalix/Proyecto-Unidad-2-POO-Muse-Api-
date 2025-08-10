@@ -12,7 +12,7 @@ art_collection = get_collection("art")
 async def get_all_art_types() -> list:
     try:
         art_types = []
-        for doc in art_type_collection.find({"active": True}):
+        for doc in art_type_collection.find():
             doc["id_arttype"] = str(doc["_id"])
             del doc["_id"]
             catalog_type = Art_Type(**doc)
