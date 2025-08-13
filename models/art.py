@@ -42,6 +42,10 @@ class Art(BaseModel):
         default=True,
         description="Estado activo de la obra de arte, por defecto es True"
     )
+    arttypetname: Optional[str] = Field(
+        default=None,
+        description="Nombre del tipo de arte"
+    )
 
 class ArtWithType(BaseModel):
     id_art: str 
