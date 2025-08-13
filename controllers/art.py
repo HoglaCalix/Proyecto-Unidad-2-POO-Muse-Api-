@@ -22,16 +22,44 @@ async def get_all_art_with_pipeline_endpoint(skip: int = 0, limit: int = 5) -> l
         raise HTTPException(status_code=500, detail=f"Error retrieving arts: {str(e)}")
 
 
+
 async def get_all_art() -> list[Art]:
-    
     try:
+        pipeline = [
+            { 
+                "$addFields": {
+                    "id_art_type": { "$toObjectId": "$id_art_type" }
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "art_type",
+                    "localField": "id_art_type",
+                    "foreignField": "_id",
+                    "as": "art_type"
+                }
+            },
+            { "$unwind": "$art_type" },
+            {
+                "$project": {
+                    "id_art": { "$toString": "$_id" },
+                    "description": 1,
+                    "active": 1,
+                    "title": 1,
+                    "creation_date": 1,
+                    "image_url": 1,
+                    "id_art_type": { "$toString": "$id_art_type" },
+                    "arttypetname": "$art_type.arttypetname"
+                }
+            }
+        ]
+
         arts = []
-        for doc in art_collection.find():
-            doc["id_art"] = str(doc["_id"])
-            del doc["_id"]
+        for doc in art_collection.aggregate(pipeline):
             art = Art(**doc)
             arts.append(art)
         return arts
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving arts: {str(e)}")
     
