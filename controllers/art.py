@@ -23,7 +23,7 @@ async def get_all_art_with_pipeline_endpoint(skip: int = 0, limit: int = 5) -> l
 
 
 
-async def get_all_art() -> list[Art]:
+async def get_all_art() -> list:
     try:
         pipeline = [
             { 
